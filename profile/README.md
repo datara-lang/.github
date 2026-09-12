@@ -1,6 +1,6 @@
 <div align="center">
 
-<img src="https://raw.githubusercontent.com/datara-lang/datara/3040374026bb4a7ec928f2445831518f9e61284d/assets/icon.png" width="130" height="130" alt="Datara Logo" style="border-radius: 20px;" />
+<img src="https://raw.githubusercontent.com/datara-lang/.github/main/profile/icon.png" width="130" height="130" alt="Datara Logo" style="border-radius: 20px;" />
 
 # The Datara Programming Language
 
