@@ -127,7 +127,31 @@ Install the complete Datara toolchain (`forgen` compiler, language server, and `
 irm https://raw.githubusercontent.com/datara-lang/datara/main/install.ps1 | iex
 ```
 
-#### Linux & macOS (Bash):
+#### Windows (Scoop):
+```powershell
+scoop bucket add datara https://github.com/datara-lang/scoop-bucket
+scoop install datara
+```
+
+#### macOS (Homebrew):
+```bash
+brew tap datara-lang/tap
+brew install datara
+```
+
+#### Linux (Homebrew / Linuxbrew):
+```bash
+brew tap datara-lang/tap
+brew install datara
+```
+
+#### Linux (Arch / Manjaro via AUR):
+```bash
+git clone https://github.com/datara-lang/aur-datara-bin.git
+cd aur-datara-bin && makepkg -si
+```
+
+#### Linux & macOS (universal):
 ```bash
 curl -fsSL https://raw.githubusercontent.com/datara-lang/datara/main/install.sh | sh
 ```
@@ -141,11 +165,14 @@ datara info
 
 <h3 id="ecosystem">Official Organization Repositories</h3>
 
-| Repository | Role & Architecture | Tier | Stack |
+| Repository | Role &amp; Architecture | Tier | Stack |
 |:---|:---|:---:|:---|
-| **[datara-lang/datara](https://github.com/datara-lang/datara)** | Core systems language compiler (`forgen`), runtime, SSA DMIR optimizer & stdlib | Core Toolchain | Rust, Cranelift, LLVM, C++ |
+| **[datara-lang/datara](https://github.com/datara-lang/datara)** | Core systems language compiler (`forgen`), runtime, SSA DMIR optimizer &amp; stdlib | Core Toolchain | Rust, Cranelift, LLVM, C++ |
 | **[datara-lang/sparks](https://github.com/datara-lang/sparks)** | Decentralized cryptographic package manager with Ed25519 capabilities | Ecosystem | Python, Cryptography, Rust |
 | **[datara-lang/datara-grammar](https://github.com/datara-lang/datara-grammar)** | Syntax highlighting grammars for VS Code, TextMate, and IDEs | Tooling | TypeScript, JSON, TextMate |
+| **[datara-lang/homebrew-tap](https://github.com/datara-lang/homebrew-tap)** | Official Homebrew formula for macOS and Linux (Apple Silicon, Intel x64, Linux x64) | Distribution | Ruby |
+| **[datara-lang/scoop-bucket](https://github.com/datara-lang/scoop-bucket)** | Official Scoop bucket for Windows command-line installation | Distribution | JSON |
+| **[datara-lang/aur-datara-bin](https://github.com/datara-lang/aur-datara-bin)** | Arch Linux AUR PKGBUILD for binary installation on Arch and Manjaro | Distribution | Bash |
 
 ---
 
