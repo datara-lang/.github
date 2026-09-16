@@ -8,9 +8,10 @@
 
 <p>
   <a href="https://github.com/datara-lang/datara"><img src="https://img.shields.io/badge/Language-Datara-E3B341?style=for-the-badge&logo=codeforces&logoColor=white" alt="Datara" /></a>
-  <a href="https://github.com/datara-lang/datara/releases"><img src="https://img.shields.io/badge/Version-1.2.0_Apex-2563EB?style=for-the-badge&logo=git&logoColor=white" alt="Version 1.2.0" /></a>
-  <a href="https://github.com/datara-lang/datara/blob/main/LICENSE-APACHE"><img src="https://img.shields.io/badge/License-Apache_2.0_OR_MIT-10B981?style=for-the-badge&logo=open-source-initiative&logoColor=white" alt="License" /></a>
-  <a href="https://github.com/github-linguist/linguist/pull/8189"><img src="https://img.shields.io/badge/Linguist-PR_%238189-F59E0B?style=for-the-badge&logo=github&logoColor=white" alt="Linguist PR" /></a>
+  <a href="https://github.com/datara-lang/datara"><img src="https://img.shields.io/badge/Memory-Affine_Zero--GC-2563EB?style=for-the-badge&logo=speedtest&logoColor=white" alt="Affine Memory" /></a>
+  <a href="https://github.com/datara-lang/datara"><img src="https://img.shields.io/badge/Compiler-Cranelift_%2B_LLVM-10B981?style=for-the-badge&logo=llvm&logoColor=white" alt="Dual Engine Compiler" /></a>
+  <a href="https://github.com/datara-lang/sparks"><img src="https://img.shields.io/badge/Packages-Sparks_Ed25519-7C3AED?style=for-the-badge&logo=box&logoColor=white" alt="Sparks Registry" /></a>
+  <a href="https://github.com/datara-lang/datara/blob/main/LICENSE-MIT"><img src="https://img.shields.io/badge/License-Apache_2.0_OR_MIT-0EA5E9?style=for-the-badge&logo=open-source-initiative&logoColor=white" alt="License" /></a>
 </p>
 
 <p align="center">
@@ -30,7 +31,7 @@
 
 **Datara** unites the mechanical sympathy and sub-millisecond execution of bare-metal C and Rust with the syntactic elegance and developer velocity of modern languages.
 
-Designed specifically for low-latency infrastructure, game engines, high-frequency systems, and distributed cloud services, Datara enforces **automatic memory safety at compile time without a garbage collector** and without the steep learning curve of manual lifetime annotations.
+Designed specifically for low-latency infrastructure, game engines, high-frequency trading systems, distributed cloud services, and real-time audio/video pipelines, Datara enforces **automatic memory safety at compile time without a garbage collector** and without the steep learning curve of manual lifetime annotations.
 
 ---
 
@@ -49,14 +50,14 @@ class Order {
 
 // Behavioral extension: methods separated from raw state
 behavior Order {
-    total_value() -> Float => shares.to_float() * price
+    total_value() -> Float => this.shares.to_float() * this.price
 
     format_summary() -> Str {
-        return fmt"Order #{id}: {shares}x {symbol} @ ${price} (Total: ${total_value()})"
+        return fmt"Order #{this.id}: {this.shares}x {this.symbol} @ ${this.price} (Total: ${this.total_value()})"
     }
 }
 
-// Pipeline transformation
+// Dataflow pipeline transformation
 fn apply_rebate(val: Float) -> Float => val * 0.98
 
 fn main() {
@@ -74,18 +75,31 @@ fn main() {
 <h3 id="core-pillars">Core Pillars</h3>
 
 #### 1. Affine Ownership Without Annotations
-Datara tracks resource ownership and lifetimes automatically through static lexical regions. You get the deterministic deallocation guarantees of Rust without writing `'a`, `'b` lifetime sigils.
+Datara tracks resource ownership and lifetimes automatically through static lexical regions. You get the deterministic deallocation guarantees and zero-overhead memory footprint of Rust without writing `'a`, `'b` lifetime sigils.
 
-#### 2. Evidence Gate Optimizer
-Every optimization pass in the `forgen` compiler pipeline (SROA, Mem2Reg, BCE, LoopFold, CSE) produces formal mathematical proofs at the SSA DMIR intermediate representation level. Undefined behavior is eliminated by construction.
+#### 2. Dual-Engine Compiler Architecture
+* **Instant Developer Feedback**: Sub-30ms JIT evaluation and compilation via **Cranelift**.
+* **Production Peak Performance**: Whole-program optimization, auto-vectorization, profile-guided optimization (PGO), and link-time optimization via **LLVM AOT (`-O3 -flto`)**.
+* **Sandboxed Execution**: Native **WebAssembly (WASM SIMD)** target with capability-guarded execution.
 
-#### 3. Dual-Engine Compiler
-* **Developer Velocity**: Instant 30–50ms JIT evaluation and compilation via **Cranelift**.
-* **Production Peak Performance**: Whole-program optimization, auto-vectorization, and profile-guided optimization (PGO) via **LLVM AOT (`-O3 -flto`)**.
-* **Zero-Trust Sandboxing**: Native **WebAssembly** target with capability-guarded execution.
+#### 3. Evidence Gate Formal Verification
+Every optimization pass in the `forgen` compiler pipeline (SROA, Mem2Reg, Bound-Check Elimination, LoopFold, CSE) produces formal mathematical proofs at the SSA DMIR intermediate representation level. Undefined behavior and out-of-bounds accesses are eliminated by construction.
 
-#### 4. Cryptographically Secured Package Ecosystem
-The **Sparks** package manager cryptographically signs package manifests using Ed25519 keys and enforces fine-grained capability descriptors (`.capabilities.json`) to prevent supply-chain vulnerabilities.
+#### 4. Universal Polyglot Interoperability
+Datara directly bridges foreign ecosystems with zero rewrite overhead:
+* **C / C++**: Direct header parsing and native dynamic linking without manual glue code.
+* **Python**: Direct CPython runtime integration with zero-copy buffer export for NumPy, PyTorch, and SciPy.
+* **Rust**: Seamless consumption of crates via C-ABI and automated bindings.
+* **Node.js**: Embedded V8/N-API bridging for full package ecosystem access.
+
+#### 5. Allocator Tiers & Systems Control
+Fine-grained execution control when standard stack and RAII allocation are not enough:
+* `@arena`, `@pool`, and `@heap` scope-level memory management with O(1) bulk destruction.
+* Structured inline assembly with two-way variable binding for performance-critical inner loops.
+* Amortized O(1) string builder (`StrBuf`) for high-throughput stream processing.
+
+#### 6. Cryptographically Secured Package Ecosystem
+The **Sparks** package registry cryptographically signs package manifests using Ed25519 signatures and enforces fine-grained capability descriptors (`.capabilities.json`) to neutralize supply-chain attack vectors.
 
 ---
 
@@ -100,6 +114,7 @@ The **Sparks** package manager cryptographically signs package manifests using E
 | **Evidence Gate Formal Verification** | Yes (DMIR SSA) | No | No | No |
 | **Native Dataflow Pipelines (`\|>`)** | Yes | No | No | No |
 | **Capability-Guarded Package Sidecars** | Yes (Sparks) | No | No | No |
+| **Native Multi-Backend (JIT + AOT + WASM)** | Yes | No | No | No |
 
 ---
 
@@ -119,18 +134,18 @@ curl -fsSL https://raw.githubusercontent.com/datara-lang/datara/main/install.sh 
 
 Verify your installation:
 ```bash
-datara version
+datara info
 ```
 
 ---
 
 <h3 id="ecosystem">Official Organization Repositories</h3>
 
-| Repository | Focus & Role | Version |
-|:---|:---|:---:|
-| **[datara-lang/datara](https://github.com/datara-lang/datara)** | The core programming language compiler (`forgen`), runtime systems, and standard library. | `v1.2.0` |
-| **[datara-lang/sparks](https://github.com/datara-lang/sparks)** | The official cryptographic package registry and dependency manager. | `Active` |
-| **[datara-lang/datara-grammar](https://github.com/datara-lang/datara-grammar)** | TextMate and editor syntax highlighting grammar for GitHub and VS Code. | `v1.0.0` |
+| Repository | Role & Architecture | Tier | Stack |
+|:---|:---|:---:|:---|
+| **[datara-lang/datara](https://github.com/datara-lang/datara)** | Core systems language compiler (`forgen`), runtime, SSA DMIR optimizer & stdlib | Core Toolchain | Rust, Cranelift, LLVM, C++ |
+| **[datara-lang/sparks](https://github.com/datara-lang/sparks)** | Decentralized cryptographic package manager with Ed25519 capabilities | Ecosystem | Python, Cryptography, Rust |
+| **[datara-lang/datara-grammar](https://github.com/datara-lang/datara-grammar)** | Syntax highlighting grammars for VS Code, TextMate, and IDEs | Tooling | TypeScript, JSON, TextMate |
 
 ---
 
